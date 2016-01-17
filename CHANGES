@@ -1,3 +1,4 @@
+20190820 code: use stdint.h to get the definition for uint32
 20190819 version: notqmail 1.07.
 20190810 code: remove incorrect usage of vfork()
 20190710 code: add instchown to set ownership and mode on installed files.
