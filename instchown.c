@@ -11,8 +11,8 @@ extern void hier();
 
 void h(home,uid,gid,mode)
 char *home;
-int uid;
-int gid;
+uid_t uid;
+uid_t gid;
 int mode;
 {
   if (chown(home,uid,gid) == -1)
@@ -24,8 +24,8 @@ int mode;
 void d(home,subdir,uid,gid,mode)
 char *home;
 char *subdir;
-int uid;
-int gid;
+uid_t uid;
+uid_t gid;
 int mode;
 {
   if (chdir(home) == -1)
@@ -39,8 +39,8 @@ int mode;
 void p(home,fifo,uid,gid,mode)
 char *home;
 char *fifo;
-int uid;
-int gid;
+uid_t uid;
+uid_t gid;
 int mode;
 {
   if (chdir(home) == -1)
@@ -55,8 +55,8 @@ void c(home,subdir,file,uid,gid,mode)
 char *home;
 char *subdir;
 char *file;
-int uid;
-int gid;
+uid_t uid;
+uid_t gid;
 int mode;
 {
   if (chdir(home) == -1)
@@ -73,8 +73,8 @@ void z(home,file,len,uid,gid,mode)
 char *home;
 char *file;
 int len;
-int uid;
-int gid;
+uid_t uid;
+uid_t gid;
 int mode;
 {
   if (chdir(home) == -1)
