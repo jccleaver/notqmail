@@ -250,10 +250,6 @@ byte_cr.o: \
 compile byte_cr.c byte.h
 	./compile byte_cr.c
 
-byte_diff.o: \
-compile byte_diff.c byte.h
-	./compile byte_diff.c
-
 byte_rchr.o: \
 compile byte_rchr.c byte.h
 	./compile byte_rchr.c
@@ -1867,11 +1863,11 @@ scan.h fmt.h
 
 str.a: \
 makelib str_cpy.o str_chr.o \
-str_rchr.o str_start.o byte_chr.o byte_rchr.o byte_diff.o byte_copy.o \
+str_rchr.o str_start.o byte_chr.o byte_rchr.o byte_copy.o \
 byte_cr.o
 	./makelib str.a str_cpy.o \
 	str_chr.o str_rchr.o str_start.o byte_chr.o byte_rchr.o \
-	byte_diff.o byte_copy.o byte_cr.o
+	byte_copy.o byte_cr.o
 
 str_chr.o: \
 compile str_chr.c str.h
