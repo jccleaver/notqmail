@@ -1,5 +1,6 @@
 #include "alloc.h"
 #include "error.h"
+#include "hasbltnoverflow.h"
 extern char *malloc();
 extern void free();
 
@@ -16,7 +17,12 @@ unsigned int n;
 {
   char *x;
   unsigned int m;
+#ifdef HAS_BUILTIN_OVERFLOW
   if (__builtin_add_overflow(ALIGNMENT, n - (n & (ALIGNMENT - 1)), &m)) {
+#else
+  m = n;
+  if ((n = ALIGNMENT + n - (n & (ALIGNMENT - 1))) < m) { /*- handle overflow */
+#endif
     errno = error_nomem;
     return 0;
   }
