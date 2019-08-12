@@ -772,8 +772,11 @@ hostname.o: \
 compile hostname.c substdio.h subfd.h substdio.h readwrite.h exit.h
 	./compile hostname.c
 
-install:
-	echo './instpackage && ./instchown' > install
+install: \
+instpackage instqueue instchown warn-auto.sh
+	( cat warn-auto.sh; \
+	echo './instpackage && ./instqueue && ./instchown' \
+	) > install
 	chmod 755 install
 
 instcheck: \
@@ -801,16 +804,30 @@ instchown.o: \
 compile instchown.c strerr.h error.h exit.h
 	./compile instchown.c
 
+instfiles.o: \
+compile instfiles.c substdio.h strerr.h env.h error.h fifo.h open.h \
+readwrite.h alloc.h str.h stralloc.h
+	./compile instfiles.c
+
 instpackage: \
-load instpackage.o fifo.o hier.o auto_qmail.o auto_split.o strerr.a \
+load instpackage.o instfiles.o fifo.o hier.o auto_qmail.o auto_split.o strerr.a \
 substdio.a open.a error.a env.a str.a fs.a stralloc.a alloc.a
-	./load instpackage fifo.o hier.o auto_qmail.o auto_split.o \
+	./load instpackage instfiles.o fifo.o hier.o auto_qmail.o auto_split.o \
 	strerr.a substdio.a open.a error.a env.a str.a fs.a stralloc.a alloc.a
 
 instpackage.o: \
-compile instpackage.c substdio.h strerr.h env.h error.h fifo.h open.h \
-readwrite.h exit.h alloc.h str.h stralloc.h
+compile instpackage.c open.h strerr.h exit.h
 	./compile instpackage.c
+
+instqueue: \
+load instqueue.o instfiles.o fifo.o hier.o auto_qmail.o auto_split.o strerr.a \
+substdio.a open.a error.a env.a str.a fs.a stralloc.a alloc.a
+	./load instqueue instfiles.o fifo.o hier.o auto_qmail.o auto_split.o \
+	strerr.a substdio.a open.a error.a env.a str.a fs.a stralloc.a alloc.a
+
+instqueue.o: \
+compile instqueue.c open.h strerr.h exit.h
+	./compile instqueue.c
 
 instuidgid.o: \
 compile instuidgid.c uidgid.h auto_uids.h auto_users.h
@@ -850,7 +867,7 @@ qmail-pop3d qmail-popup qmail-qmqpc qmail-qmqpd qmail-qmtpd \
 qmail-smtpd sendmail tcp-env qmail-newmrh config config-fast dnscname \
 dnsptr dnsip dnsmxip dnsfq hostname ipmeprint qreceipt qsmhook qbiff \
 forward preline condredirect bouncesaying except maildirmake \
-maildir2mbox maildirwatch qail elq pinq install instpackage instchown \
+maildir2mbox maildirwatch qail elq pinq install instpackage instqueue instchown \
 instcheck home home+df proc proc+df binm1 binm1+df binm2 binm2+df \
 binm3 binm3+df
 
@@ -1039,6 +1056,7 @@ compile open_write.c open.h
 package: \
 it man
 	./instpackage
+	./instqueue
 
 pinq: \
 warn-auto.sh pinq.sh conf-qmail conf-break conf-split
@@ -1807,6 +1825,7 @@ substdio.h alloc.h auto_qmail.h exit.h env.h str.h
 setup: \
 it man
 	./instpackage
+	./instqueue
 	./instchown
 
 sgetopt.o: \

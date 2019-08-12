@@ -2,10 +2,10 @@
 #include "strerr.h"
 #include "exit.h"
 
-extern void hier();
+extern void hier_queue();
 extern int fdsourcedir;
 
-#define FATAL "instpackage: fatal: "
+#define FATAL "instqueue: fatal: "
 
 void main()
 {
@@ -14,6 +14,6 @@ void main()
     strerr_die2sys(111,FATAL,"unable to open current directory: ");
 
   umask(077);
-  hier();
+  hier_queue();
   _exit(0);
 }
