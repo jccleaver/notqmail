@@ -8,8 +8,20 @@
 #include "uidgid.h"
 #include "auto_uids.h"
 #include "auto_users.h"
+#include "env.h"
 
 int auto_uidq;
+
+static char *setup_qrargs()
+{
+ static char *qrargs;
+
+ if (!qrargs)
+  qrargs = env_get("QMAILREMOTE");
+ if (!qrargs)
+  qrargs = "bin/qmail-remote";
+ return qrargs;
+}
 
 void initialize(argc,argv)
 int argc;
@@ -90,7 +102,7 @@ char *s; char *r; int at;
  int f;
  char *(args[5]);
 
- args[0] = "qmail-remote";
+ args[0] = setup_qrargs();
  args[1] = r + at + 1;
  args[2] = s;
  args[3] = r;
