@@ -1,4 +1,5 @@
 201908xx version: notqmail 1.07.
+20190814 added spawn-filter program
 20190819 remove incorrect usage of vfork()
 20190710 code: add instchown to set ownership and mode on installed files.
 20190709 code: add instpackage to install without root access.
