@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "substdio.h"
 #include "strerr.h"
 #include "env.h"

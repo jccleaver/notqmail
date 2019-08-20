@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "stralloc.h"
 #include "subfd.h"
 #include "getln.h"

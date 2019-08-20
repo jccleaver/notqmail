@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "case.h"
 #include "strerr.h"
 #include "stralloc.h"
