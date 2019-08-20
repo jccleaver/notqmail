@@ -1,4 +1,5 @@
 #include <sys/types.h>
+#include <grp.h>
 #include <unistd.h>
 #include "prot.h"
 
