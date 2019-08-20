@@ -1,5 +1,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include "case.h"
 #include "strerr.h"
 #include "stralloc.h"
