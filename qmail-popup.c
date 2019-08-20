@@ -16,17 +16,17 @@
 
 void die() { _exit(1); }
 
-int saferead(fd,buf,len) int fd; char *buf; int len;
+ssize_t saferead(fd,buf,len) int fd; char *buf; int len;
 {
-  int r;
+  ssize_t r;
   r = timeoutread(1200,fd,buf,len);
   if (r <= 0) die();
   return r;
 }
 
-int safewrite(fd,buf,len) int fd; char *buf; int len;
+ssize_t safewrite(fd,buf,len) int fd; char *buf; int len;
 {
-  int r;
+  ssize_t r;
   r = timeoutwrite(1200,fd,buf,len);
   if (r <= 0) die();
   return r;
