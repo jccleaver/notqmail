@@ -1,5 +1,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include "sig.h"
 #include "wait.h"
 #include "substdio.h"
