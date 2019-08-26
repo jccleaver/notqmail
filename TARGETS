@@ -1,7 +1,5 @@
 auto-ccld.sh
 make-load
-find-systype
-systype
 load
 make-compile
 compile
@@ -284,15 +282,11 @@ qmail-newmrh.o
 qmail-newmrh
 config
 config-fast
-dnscname.o
 dnsdoe.o
-dnscname
 dnsptr.o
 dnsptr
 dnsip.o
 dnsip
-dnsmxip.o
-dnsmxip
 dnsfq.o
 dnsfq
 hostname.o

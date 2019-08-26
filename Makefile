@@ -361,8 +361,8 @@ case.h
 	./compile commands.c
 
 compile: \
-make-compile warn-auto.sh systype
-	( cat warn-auto.sh; ./make-compile "`cat systype`" ) > \
+make-compile warn-auto.sh
+	( cat warn-auto.sh; ./make-compile ) > \
 	compile
 	chmod 755 compile
 
@@ -453,18 +453,6 @@ compile dns.c ip.h ipalloc.h ip.h gen_alloc.h fmt.h alloc.h str.h \
 stralloc.h gen_alloc.h dns.h case.h
 	./compile dns.c
 
-dnscname: \
-load dnscname.o dns.o dnsdoe.o ip.o ipalloc.o stralloc.a alloc.a \
-substdio.a error.a str.a fs.a dns.lib socket.lib
-	./load dnscname dns.o dnsdoe.o ip.o ipalloc.o stralloc.a \
-	alloc.a substdio.a error.a str.a fs.a  `cat dns.lib` `cat \
-	socket.lib`
-
-dnscname.o: \
-compile dnscname.c substdio.h subfd.h substdio.h stralloc.h \
-gen_alloc.h dns.h dnsdoe.h readwrite.h exit.h
-	./compile dnscname.c
-
 dnsdoe.o: \
 compile dnsdoe.c substdio.h subfd.h substdio.h exit.h dns.h dnsdoe.h
 	./compile dnsdoe.c
@@ -492,19 +480,6 @@ dnsip.o: \
 compile dnsip.c substdio.h subfd.h substdio.h stralloc.h gen_alloc.h \
 dns.h dnsdoe.h ip.h ipalloc.h ip.h gen_alloc.h exit.h
 	./compile dnsip.c
-
-dnsmxip: \
-load dnsmxip.o dns.o dnsdoe.o ip.o ipalloc.o now.o stralloc.a alloc.a \
-substdio.a error.a str.a fs.a dns.lib socket.lib
-	./load dnsmxip dns.o dnsdoe.o ip.o ipalloc.o now.o \
-	stralloc.a alloc.a substdio.a error.a str.a fs.a  `cat \
-	dns.lib` `cat socket.lib`
-
-dnsmxip.o: \
-compile dnsmxip.c substdio.h subfd.h substdio.h stralloc.h \
-gen_alloc.h fmt.h dns.h dnsdoe.h ip.h ipalloc.h ip.h gen_alloc.h \
-now.h datetime.h exit.h
-	./compile dnsmxip.c
 
 dnsptr: \
 load dnsptr.o dns.o dnsdoe.o ip.o ipalloc.o stralloc.a alloc.a \
@@ -598,11 +573,6 @@ compile fd_move.c fd.h
 fifo.o: \
 compile fifo.c hasmkffo.h fifo.h
 	./compile fifo.c
-
-find-systype: \
-find-systype.sh auto-ccld.sh
-	cat auto-ccld.sh find-systype.sh > find-systype
-	chmod 755 find-systype
 
 fmt_str.o: \
 compile fmt_str.c fmt.h
@@ -746,7 +716,7 @@ compile hfield.c hfield.h
 	./compile hfield.c
 
 hier.o: \
-compile hier.c auto_qmail.h auto_split.h auto_uids.h fmt.h fifo.h
+compile hier.c auto_qmail.h auto_split.h auto_uids.h fmt.h fifo.h hier.h
 	./compile hier.c
 
 home: \
@@ -786,7 +756,7 @@ auto_users.o auto_groupq.o strerr.a substdio.a error.a str.a fs.a
 	str.a fs.a
 
 instcheck.o: \
-compile instcheck.c strerr.h error.h readwrite.h exit.h
+compile instcheck.c strerr.h error.h readwrite.h exit.h hier.h
 	./compile instcheck.c
 
 instchown: \
@@ -798,7 +768,7 @@ auto_groupq.o strerr.a substdio.a error.a str.a fs.a
 	auto_users.o auto_groupq.o strerr.a substdio.a error.a str.a fs.a
 
 instchown.o: \
-compile instchown.c strerr.h error.h exit.h
+compile instchown.c strerr.h error.h exit.h hier.h
 	./compile instchown.c
 
 instpackage: \
@@ -809,7 +779,7 @@ substdio.a open.a error.a env.a str.a fs.a stralloc.a alloc.a
 
 instpackage.o: \
 compile instpackage.c substdio.h strerr.h env.h error.h fifo.h open.h \
-readwrite.h exit.h alloc.h str.h stralloc.h
+readwrite.h exit.h alloc.h str.h stralloc.h hier.h
 	./compile instpackage.c
 
 instuidgid.o: \
@@ -847,16 +817,16 @@ qmail-clean qmail-send qmail-start splogger qmail-queue qmail-inject \
 predate datemail mailsubj qmail-upq qmail-showctl qmail-newu \
 qmail-pw2u qmail-qread qmail-qstat qmail-tcpto qmail-tcpok \
 qmail-pop3d qmail-popup qmail-qmqpc qmail-qmqpd qmail-qmtpd \
-qmail-smtpd sendmail tcp-env qmail-newmrh config config-fast dnscname \
-dnsptr dnsip dnsmxip dnsfq hostname ipmeprint qreceipt qsmhook qbiff \
+qmail-smtpd sendmail tcp-env qmail-newmrh config config-fast \
+dnsptr dnsip dnsfq hostname ipmeprint qreceipt qsmhook qbiff \
 forward preline condredirect bouncesaying except maildirmake \
 maildir2mbox maildirwatch qail elq pinq install instpackage instchown \
 spawn-filter instcheck home home+df proc proc+df binm1 binm1+df binm2 binm2+df \
 binm3 binm3+df
 
 load: \
-make-load warn-auto.sh systype
-	( cat warn-auto.sh; ./make-load "`cat systype`" ) > load
+make-load warn-auto.sh
+	( cat warn-auto.sh; ./make-load ) > load
 	chmod 755 load
 
 lock.a: \
@@ -963,8 +933,8 @@ make-makelib.sh auto-ccld.sh
 	chmod 755 make-makelib
 
 makelib: \
-make-makelib warn-auto.sh systype
-	( cat warn-auto.sh; ./make-makelib "`cat systype`" ) > \
+make-makelib warn-auto.sh
+	( cat warn-auto.sh; ./make-makelib ) > \
 	makelib
 	chmod 755 makelib
 
@@ -2074,10 +2044,6 @@ trysyslog.c compile load
 	./load trysyslog -lgen ) >/dev/null 2>&1 \
 	&& echo -lgen || exit 0 ) > syslog.lib
 	rm -f trysyslog.o trysyslog
-
-systype: \
-find-systype trycpp.c
-	./find-systype > systype
 
 tcp-env: \
 load tcp-env.o dns.o remoteinfo.o timeoutread.o timeoutwrite.o \
